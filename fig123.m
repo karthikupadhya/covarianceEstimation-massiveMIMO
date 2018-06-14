@@ -1,8 +1,12 @@
 % Simulation code for "Covariance Matrix Estimation for Massive MIMO"
 % by Karthik Upadhya and Sergiy Vorobyov
-% Submitted to IEEE SPL.
+% Published in IEEE Signal Processing Letters, vol. 25, no. 4, pp. 546-550, April 2018.
 %
 % This code generates Figures 1-3.
+% ref14 is the method in [14] - E. Björnson, L. Sanguinetti and M. Debbah,
+% "Massive MIMO with imperfect channel covariance information," 50th
+% Asilomar Conf. Signals, Syst. Computers, Pacific Grove, CA, 2016, pp. 974-978.
+
 
 clc
 clear all
@@ -10,10 +14,10 @@ close all
 
 numCell                     = 7;
 numUser                     = 10;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% - Plot Figs 1-3 with covariance matrix estimated from the method in [14] - %%%%%%%%%
 covarianceEstimationMethod  = 'ref14';
 channelEstimationMethodRange= {'leastSquares','exactcovariancematrix','estimatedcovariancematrix'};
-nRRange = [10,50,100,200,250];
+nRRange = [10,50,100,200,250]; % Range of values for the parameter N_r in [14]
 for nn = 1:length(channelEstimationMethodRange);
     channelEstimationMethod = channelEstimationMethodRange{nn};
     for ii = 1:length(nRRange)
@@ -35,10 +39,10 @@ figure(2); plot(numPilotRange,sumAchRate(3,:),'ko-');
 figure(3); plot(numPilotRange,10*log10(matrixErrorNorm(3,:)),'ko-'); hold on; drawnow
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% - Plot Figs 1-3 with covariance matrix estimated using the proposed method with regular pilots - %%%%%%%%%
 covarianceEstimationMethod  = 'proposed-regularpilot';
 channelEstimationMethodRange= {'estimatedcovariancematrix'};
-nRRange = [10,50,100,200,250];
+nRRange = [10,50,100,200,250]; % Range of values for the parameter N_r in [14]
 for nn = 1:length(channelEstimationMethodRange);
     channelEstimationMethod = channelEstimationMethodRange{nn};
     for ii = 1:length(nRRange)
@@ -56,10 +60,10 @@ figure(2); plot(numPilotRange,sumAchRate(1,:),'ms-');
 figure(3); plot(numPilotRange,10*log10(matrixErrorNorm(1,:)),'ms-'); drawnow
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% - Plot Figs 1-3 with covariance matrix estimated using the proposed method with staggered pilots - %%%%%%%%%
 covarianceEstimationMethod  = 'proposed-staggeredpilot';
 channelEstimationMethodRange= {'estimatedcovariancematrix'};
-nRRange = [10,50,100,200,250];
+nRRange = [10,50,100,200,250]; % Range of values for the parameter N_r in [14]
 for nn = 1:length(channelEstimationMethodRange);
     channelEstimationMethod = channelEstimationMethodRange{nn};
     for ii = 1:length(nRRange)
